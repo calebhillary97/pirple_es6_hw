@@ -10,6 +10,10 @@
             return null;
         }
 
+        if(value<0 || value%1!==0) {
+            return null;
+        }
+
         if (singularLabels.indexOf(label) >= 0 && value != 1) {
             return null;
         } else if (pluralLabels.indexOf(label) >= 0 && value == 1) {
