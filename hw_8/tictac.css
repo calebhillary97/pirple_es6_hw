@@ -1,0 +1,15 @@
+.board {
+    margin: 10px;
+}
+
+.box {
+    height: 50px;
+    width: 50px;
+    border: 1px solid black;
+    display: inline-block;
+    text-align: center;
+    font-size: 44px;
+    position: relative;
+    margin-top: -1px;
+    margin-left: -5px;
+}
