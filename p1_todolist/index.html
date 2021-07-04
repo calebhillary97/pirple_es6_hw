@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>To Do List</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <div id="top-band" class="top-band">
+            <span class="top-band-text">
+                <span id="tb-user-name" class="top-band-name">Name</span>'s to do List
+            </span>
+            <span class="button logout-btn">Log Out</span>
+        </div>
+
+        <div id="page-1-index">
+            <div id="default-box" class="default-box" style="display: block">
+                <div id="default-form">
+                    <div id="btn-login" class="button" style="margin-top: 192px">Log In</div>
+                    <div id="btn-signup" class="button" style="margin-top: 10px">Sign Up</div>
+                </div>
+                <div id="login-form" style="display: none">
+                    <div id="btn-login" class="button" style="margin-top: 192px">Log In</div>
+                </div>
+                <div id="signup-form" style="display: none">
+                    <div class="flex-container">
+                        <div class="input-box">
+                            <label for="fname" class="form-label">First name</label><br />
+                            <input
+                                class="input-field"
+                                type="text"
+                                id="signup-fname"
+                                name="fname"
+                                required
+                            />
+                        </div>
+                        <div class="input-box">
+                            <label for="fname" class="form-label">Last name</label><br />
+                            <input
+                                class="input-field"
+                                type="text"
+                                id="signup-lname"
+                                name="fname"
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div id="signup-name-error" class="error-info" style="display: none">
+                        Enter first name and last name
+                    </div>
+                    <div>
+                        <div class="input-box" style="width: auto">
+                            <label for="lname" class="form-label">Email</label><br />
+                            <input
+                                class="input-field"
+                                type="email"
+                                id="signup-email"
+                                name="email"
+                                required
+                            /><br />
+                        </div>
+                    </div>
+                    <div id="signup-email-error" class="error-info" style="display: none">
+                        Enter valid email
+                    </div>
+                    <div class="flex-container">
+                        <div class="input-box">
+                            <label for="fname" class="form-label">Password</label><br />
+                            <input
+                                class="input-field"
+                                type="password"
+                                id="signup-password"
+                                name="fnpasswordame"
+                                required
+                            />
+                        </div>
+                        <div class="input-box">
+                            <label for="fname" class="form-label">Confirm</label><br />
+                            <input
+                                class="input-field"
+                                type="password"
+                                id="signup-confirm"
+                                name="confirm"
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div id="signup-password-error" class="error-info" style="display: none">
+                        Enter first name and last name
+                    </div>
+                    <!-- <input type="submit" class="button" value="Submit"> -->
+                    <div
+                        type="submit"
+                        id="btn-signup-submit"
+                        class="button"
+                        style="margin-top: 28px; margin-bottom: 12px"
+                    >
+                        Submit
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/usermanager.js"></script>
+    <script src="scripts/main.js"></script>
+</html>
