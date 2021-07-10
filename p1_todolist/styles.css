@@ -18,13 +18,13 @@ body {
 
 .top-band-text {
     font-size: 25px;
-    color: #59594A;
+    color: #59594a;
     font-family: 'Google Sans', Roboto, Arial, sans-serif;
     margin-left: 36px;
 }
 
 .top-band-name {
-    color: #BE6E46;
+    color: #be6e46;
     font-weight: bold;
 }
 
@@ -46,6 +46,8 @@ body {
     font-family: 'Google Sans', Roboto, Arial, sans-serif;
     font-weight: 900;
     height: 19px;
+    line-height: 19px;
+    font-size: 15px;
     margin-left: 130px;
     margin-right: 130px;
     padding: 10px;
@@ -54,15 +56,29 @@ body {
     cursor: pointer;
 }
 
-.logout-btn{
+.button:hover {
+    background-color: #4c771d;
+}
+
+.button.disabled-button {
+    background-color: #688f3e80;
+    cursor: not-allowed;
+}
+
+.cancel-button {
+    background-color: #80806b;
+}
+.cancel-button:hover {
+    background-color: #59594a;
+}
+
+.logout-btn {
     float: right;
     padding: 7px;
     margin-right: 0px;
     height: auto;
-}
-
-.button:hover {
-    background-color: #4c771d;
+    width: 80px;
+    border-radius: 20px;
 }
 
 .signup-box {
@@ -106,7 +122,7 @@ body {
     margin-top: 3px;
     border-radius: 4px;
     font-family: monospace;
-    color: #59594A;
+    color: #59594a;
     border-style: solid;
     border-width: 1px;
     border-color: #c8c8c8;
@@ -115,14 +131,14 @@ body {
 .input-field:focus {
     outline: none !important;
     border-width: 2px;
-    border-color: #5f9426;=
+    border-color: #5f9426;
 }
 
-.input-field-error{
+.input-field-error {
     border-color: red !important;
 }
 
-.error-info{
+.error-info {
     color: red;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
         sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -142,3 +158,187 @@ body {
     background-color: white;
     border: solid 1px #dbdbdb;
 }
+
+.list-default-info {
+    margin: 26px 85px;
+    color: #59594a;
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
+    font-size: 24px;
+    width: 512px;
+}
+
+.dashboard-list-item {
+    margin-left: 90px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    padding: 15px;
+    width: fit-content;
+    border: 1px solid #d1d1d1;
+    cursor: pointer;
+}
+
+.dashboard-list-item:hover {
+    background-color: #5f9426;
+}
+
+.dashboard-list-text {
+    display: inline-block;
+    width: 700px;
+    color: #222e24;
+    font-size: 26px;
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
+    margin-left: 12px;
+    pointer-events: none;
+}
+.dashboard-list-item:hover .dashboard-list-text {
+    color: white;
+}
+
+.dashboard-list-details {
+    display: inline-block;
+    width: 200px;
+    color: #8d8d8d;
+    font-size: 14px;
+    pointer-events: none;
+}
+.dashboard-list-item:hover .dashboard-list-details {
+    color: white;
+}
+
+.popup-container {
+    position: fixed;
+    margin: auto auto;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background-color: #0000007d;
+}
+
+.view-list-popup {
+    position: absolute;
+    width: 68%;
+    height: 70%;
+    background-color: white;
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: 12%;
+    border-radius: 20px;
+}
+
+.view-list-name {
+    width: 840px;
+    margin: 20px;
+    font-weight: bold;
+    border: 1px solid white;
+    color: #354e18;
+}
+
+.view-list-name:hover {
+    border-color: #8b8b67;
+}
+
+.view-list-name:focus {
+    border-color: #5f9426;
+}
+
+.list-item {
+    height: 35px;
+}
+
+.list-item-checkbox {
+    height: 18px;
+    width: 18px;
+    border-radius: 9px;
+    display: inline-block;
+    text-align: center;
+    line-height: 19px;
+    border: 1px solid #afafaf;
+    color: white;
+    cursor: pointer;
+}
+.list-item-checkbox:hover {
+    color: #afafaf;
+    background-color: #d3d3d3;
+}
+.list-item-checkbox-checked {
+    color: white !important;
+    background-color: #5f9426 !important;
+}
+
+.list-item-text {
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
+    font-size: 20px;
+    color: #44493f;
+    margin-left: 8px;
+}
+
+.list-item-add {
+    width: 480px;
+}
+.add-task-btn {
+    cursor: pointer;
+    color: #8b8b67;
+    font-size: 20px;
+}
+.add-task-btn:hover {
+    color: #be6e46;
+}
+
+.add-task-plus {
+    height: 18px;
+    width: 18px;
+    border-radius: 9px;
+    display: inline-block;
+    text-align: center;
+    line-height: 19px;
+    margin-right: 8px;
+    border: 1px solid white;
+}
+.add-task-btn:hover .add-task-plus {
+    border-color: #be6e46;
+    background-color: #be6e46;
+    color: white;
+}
+
+.list-item-add-input-container {
+    height: 154px;
+    width: 450px;
+    border: 2px solid #5f9426;
+    border-radius: 15px;
+    margin-top: 12px;
+}
+
+.list-item-add-input-ta {
+    border: none;
+    resize: none;
+    outline: none;
+    margin: 10px;
+    width: 95%;
+    height: 50%;
+    font-size: 18px;
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
+}
+
+.ui-hide {
+    display: none;
+}
+
+/* 
+
+.popup-close-btn {
+    position: absolute;
+    right: 0px;
+    background-color: #BE6E46;
+    color: white;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    margin: 8px;
+    font-family: monospace;
+    text-align: center;
+    line-height: 40px;
+}
+
+*/

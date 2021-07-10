@@ -7,7 +7,7 @@
     <body>
         <div id="top-band" class="top-band">
             <span class="top-band-text">
-                <span id="tb-user-name" class="top-band-name">Name</span>'s to do List
+                <span class="top-band-name">Name</span>'s to do List
             </span>
             <span class="button logout-btn">Log Out</span>
         </div>
@@ -99,8 +99,95 @@
                 </div>
             </div>
         </div>
+
+        <div id="page-2-dashboard" class="ui-hide">
+            <div id="add-list-btn" class="button" style="width: 84px; margin-top: 25px">
+                New List
+            </div>
+            <div class="list-default-info ui-hide">
+                There are no lists currently available to display. Please use above button to add
+                list.
+            </div>
+            <ul style="list-style-type: none; margin-top: 30px;">
+                <template>
+                    <li class="dashboard-list-item">
+                        <span class="dashboard-list-text">List one</span
+                        ><span class="dashboard-list-details"
+                            >Created at 11/07/2021, 03:17:58</span
+                        >
+                    </li>
+                </template>
+            </ul>
+        </div>
+
+        <!-- Popups -->
+        <div id="page-2-viewlist-popup" class="ui-hide popup-container">
+            <div class="view-list-popup">
+                <input
+                    class="input-field view-list-name"
+                    placeholder="Enter List Title..."
+                    type="text"
+                    id="list-name"
+                    value=""
+                />
+                <div
+                    id="list-title-error"
+                    style="margin-top: -14px; margin-left: 23px"
+                    class="error-info ui-hide"
+                >
+                    Please enter title for List
+                </div>
+
+                <ul id="view-list-data" style="margin-bottom: 0px; list-style-type: none">
+                    <template>
+                        <li class="list-item">
+                            <span class="list-item-checkbox">&#10003;</span>
+                            <span class="list-item-text">This is the item in the List</span>
+                        </li>
+                    </template>
+                </ul>
+                <div style="margin-left: 40px">
+                    <div class="add-task-btn">
+                        <span class="add-task-plus">+</span>
+                        <span>Add task</span>
+                    </div>
+                    <div class="list-item-add-input-container ui-hide">
+                        <textarea class="list-item-add-input-ta"></textarea>
+                        <div style="margin-top: 10px">
+                            <span
+                                id="add-task-submit-btn"
+                                style="width: 55px; margin-left: 13px; margin-right: 0px"
+                                class="button disabled-button"
+                                >Add task</span
+                            >
+                            <span
+                                id="add-task-cancel-btn"
+                                style="width: 55px; margin-left: 10px"
+                                class="button cancel-button"
+                                >Cancel</span
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <div style="position: absolute; bottom: 25px; width: 100%">
+                    <span
+                        id="save-list-submit-btn"
+                        style="margin-right: 30px; margin-left: 0px; float: right; width: 55px"
+                        class="button"
+                        >Save</span
+                    >
+                    <span
+                        id="save-list-cancel-btn"
+                        style="margin-right: 30px; float: right; width: 55px"
+                        class="button cancel-button"
+                        >Cancel</span
+                    >
+                </div>
+            </div>
+        </div>
     </body>
     <script src="scripts/utils.js"></script>
-    <script src="scripts/usermanager.js"></script>
+    <script src="scripts/datamanager.js"></script>
     <script src="scripts/main.js"></script>
 </html>
