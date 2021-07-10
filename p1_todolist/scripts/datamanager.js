@@ -29,9 +29,12 @@ var TDLData = (function () {
         return user;
     };
 
-    var isListNameValid = function (name) {
+    var isListNameValid = function (name, currentIndex) {
         var lists = user.lists;
         for (var i = 0; i < lists.length; i++) {
+            if(i==currentIndex) {
+                continue;
+            }
             if (name === lists[i].name) {
                 return false;
             }
@@ -41,10 +44,10 @@ var TDLData = (function () {
 
     var saveList = function (newList, index) {
         var lists = user.lists;
-        if (!isListNameValid(newList.name)) {
+        if (!isListNameValid(newList.name, index)) {
             return false;
         }
-        if(index!==undefined) {
+        if(index!=-1) {
             lists[index] = newList;
             DashBoardView.updateList(newList, index);
         } else {

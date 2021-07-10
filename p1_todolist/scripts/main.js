@@ -153,15 +153,17 @@ var ListPopupView = (function () {
         var addTaskTextArea = addTaskForm.querySelector('textarea');
 
         var show = function () {
-            canSubmitForm = false;
-            addTaskFormSubmit.classList.add('disabled-button');
-            addTaskTextArea.value = '';
             addTaskForm.classList.remove('ui-hide');
             addTaskBtn.classList.add('ui-hide');
             addTaskTextArea.focus();
         };
 
-        var hide = function () {
+        var hide = function (clear) {
+            if(clear) {
+                addTaskTextArea.value="";
+                canSubmitForm = false;
+                addTaskFormSubmit.classList.add('disabled-button');
+            }
             addTaskForm.classList.add('ui-hide');
             addTaskBtn.classList.remove('ui-hide');
         };
@@ -181,27 +183,34 @@ var ListPopupView = (function () {
                 return;
             }
             addItem({ name: addTaskTextArea.value.trim(), checked: false });
-            hide();
+            hide(true);
+            show();
         });
         addTaskFormCancel.addEventListener('click', hide);
 
         return {
-            show: show
+            show: show,
+            hide: hide
         };
     })();
 
-    var addItemInView = function () {
+    var addItemInView = function (inpItem) {
         var newItem = itemTemplate.content.cloneNode(true);
-        newItem.querySelector('.list-item-text').textContent = impItem.name;
+        newItem.querySelector('.list-item-text').textContent = inpItem.name;
+        if (inpItem.checked == true) {
+            newItem
+                .querySelector('.list-item-checkbox')
+                .classList.add('list-item-checkbox-checked');
+        }
         itemList.appendChild(newItem);
     };
 
-    var addItem = function (impItem) {
+    var addItem = function (inpItem) {
         listInView.items.push({
-            checked: impItem.checked,
-            name: impItem.name
+            checked: inpItem.checked,
+            name: inpItem.name
         });
-        addItemInView(impItem);
+        addItemInView(inpItem);
     };
 
     var onItemClick = function (event) {
@@ -213,7 +222,7 @@ var ListPopupView = (function () {
         }
     };
 
-    var show = function (inpList, listIndex) {
+    var show = function (inpList, inpListIndex) {
         if (!inpList) {
             listInView = {
                 name: undefined,
@@ -224,8 +233,8 @@ var ListPopupView = (function () {
             listTitle.value = inpList.name;
             inpList.items.forEach(addItemInView);
             listInView = inpList;
-            if (listIndex !== undefined) {
-                listIndex = listIndex;
+            if (inpListIndex !== undefined) {
+                listIndex = inpListIndex;
             }
         }
         popupElement.classList.remove('ui-hide');
@@ -244,6 +253,7 @@ var ListPopupView = (function () {
         });
 
         //close
+        AddTaskForm.hide();
         popupElement.classList.add('ui-hide');
     };
 
@@ -256,7 +266,7 @@ var ListPopupView = (function () {
         }
 
         var newListName = listTitle.value.trim();
-        if (!TDLData.isListNameValid(newListName)) {
+        if (!TDLData.isListNameValid(newListName, listIndex)) {
             listTitleError.textContent = 'List with this name already Exists. Please change name';
             listTitleError.classList.remove('ui-hide');
             listTitle.classList.remove('input-field-error');
@@ -294,8 +304,8 @@ var DashBoardView = (function () {
     var isNoListInfoShown = false;
     var noListsInfo = dashBoard.querySelector('.list-default-info');
 
-    var udpateList = function (list, index) {
-        if(index==undefined) {
+    var updateList = function (list, index) {
+        if (index == undefined) {
             if (isNoListInfoShown) {
                 noListsInfo.classList.add('ui-hide');
                 isNoListInfoShown = false;
@@ -342,6 +352,6 @@ var DashBoardView = (function () {
 
     return {
         open: open,
-        udpateList: udpateList
+        updateList: updateList
     };
 })();
