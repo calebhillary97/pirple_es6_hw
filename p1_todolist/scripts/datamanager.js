@@ -48,7 +48,12 @@ var TDLData = (function () {
     };
 
     var checkPassword = function (email, password) {
-        var userObj = JSON.parse(localStorage.getItem(email));
+        var userObj;
+        if(email==undefined) {
+            userObj = currentUser;
+        } else {
+            userObj = JSON.parse(localStorage.getItem(email));
+        }
         if (userObj === null) {
             return false;
         }
@@ -95,6 +100,16 @@ var TDLData = (function () {
         return currentUser.lists[index];
     };
 
+    var updateUser = function(userData){
+        currentUser.fname = userData.fname;
+        currentUser.lname = userData.lname;
+        if(userData.password){
+            currentUser.password = userData.password;
+        }
+        localStorage.setItem(currentUser.email, JSON.stringify(currentUser));
+        DashBoardView.open(currentUser);
+    };
+
     return {
         isEmailAvailable: isEmailAvailable,
         signup: signup,
@@ -104,6 +119,7 @@ var TDLData = (function () {
         getUser: getUser,
         isListNameValid: isListNameValid,
         saveList: saveList,
-        getListAtIndex: getListAtIndex
+        getListAtIndex: getListAtIndex,
+        updateUser: updateUser
     };
 })();

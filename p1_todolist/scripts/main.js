@@ -112,7 +112,7 @@ var Pages = {
             isValid = false;
         }
 
-        if(!signupTermsagree.checked) {
+        if (!signupTermsagree.checked) {
             Utils.show(termsagreeError);
             isValid = false;
         }
@@ -231,7 +231,7 @@ var ListPopupView = (function () {
         };
 
         var hide = function (clear) {
-            if (clear === true ) {
+            if (clear === true) {
                 addTaskTextArea.value = '';
                 canSubmitForm = false;
                 addTaskFormSubmit.classList.add('disabled-button');
@@ -363,13 +363,141 @@ var ListPopupView = (function () {
     };
 })();
 
-var SettingsPopupView = (function(){
+var SettingsPopupView = (function () {
+    var settingsPopup = document.getElementById('page-2-settings-popup');
 
-    var settingsPopup = document.getElementById("page-2-settings-popup");
-    
-    var open = function(){
-        settingsPopup.classList.remove("ui-hide");
+    var emailElem = document.getElementById('user-email');
+    var fnameElem = document.getElementById('user-fname');
+    var lnameElem = document.getElementById('user-lname');
+
+    var changePasswordBtnCont = settingsPopup.querySelector('#password-btn-cont');
+    var changePasswordBtn = settingsPopup.querySelector('.change-password-btn');
+    var changePasswordContainer = document.getElementById('change-password-container');
+    var changePassword = false;
+    var passwordElem = document.getElementById('user-currentpassword');
+    var newPasswordElem = document.getElementById('user-newpassword');
+    var confirmPasswordElem = document.getElementById('user-confirmpassword');
+
+    var settingsSaveBtn = settingsPopup.querySelector('#settings-save-btn');
+    var settingsCancelBtn = settingsPopup.querySelector('#settings-cancel-btn');
+
+    var validateSettings = function () {
+        var nameError = document.getElementById('user-name-error');
+        var currentPasswordError = document.getElementById('user-currentpassword-error');
+        var newPasswordError = document.getElementById('user-newpassword-error');
+        var isValid = true;
+        //reset
+        nameError.classList.add('ui-hide');
+        currentPasswordError.classList.add('ui-hide');
+        newPasswordError.classList.add('ui-hide');
+
+        fnameElem.classList.remove('input-field-error');
+        lnameElem.classList.remove('input-field-error');
+        passwordElem.classList.remove('input-field-error');
+        newPasswordElem.classList.remove('input-field-error');
+        confirmPasswordElem.classList.remove('input-field-error');
+
+        if (!fnameElem.checkValidity() && !lnameElem.checkValidity()) {
+            nameError.textContent = 'Enter first name and last name';
+            fnameElem.classList.add('input-field-error');
+            lnameElem.classList.add('input-field-error');
+            nameError.classList.remove('ui-hide');
+            isValid = false;
+        } else if (!fnameElem.checkValidity()) {
+            nameError.textContent = 'Enter first name';
+            fnameElem.classList.add('input-field-error');
+            nameError.classList.remove('ui-hide');
+            isValid = false;
+        } else if (!lnameElem.checkValidity()) {
+            nameError.textContent = 'Enter last name';
+            lnameElem.classList.add('input-field-error');
+            nameError.classList.remove('ui-hide');
+            isValid = false;
+        }
+
+        if (changePassword) {
+            if (!passwordElem.checkValidity()) {
+                currentPasswordError.textContent = 'Enter current password';
+                passwordElem.classList.add('input-field-error');
+                currentPasswordError.classList.remove('ui-hide');
+                isValid = false;
+            } else if (!TDLData.checkPassword(null, passwordElem.value)) {
+                currentPasswordError.textContent = 'Incorrect password';
+                passwordElem.classList.add('input-field-error');
+                currentPasswordError.classList.remove('ui-hide');
+                isValid = false;
+            }
+
+            if (!newPasswordElem.checkValidity()) {
+                newPasswordError.textContent = 'Enter new password';
+                newPasswordElem.classList.add('input-field-error');
+                newPasswordError.classList.remove('ui-hide');
+                isValid = false;
+            } else if (newPasswordElem.value.length < 8) {
+                newPasswordError.textContent = 'Use 8 characters or more for your password';
+                newPasswordElem.classList.add('input-field-error');
+                newPasswordError.classList.remove('ui-hide');
+                isValid = false;
+            } else if (!confirmPasswordElem.checkValidity()) {
+                newPasswordError.textContent = 'Confirm your password';
+                confirmPasswordElem.classList.add('input-field-error');
+                newPasswordError.classList.remove('ui-hide');
+                isValid = false;
+            } else if (newPasswordElem.value !== confirmPasswordElem.value) {
+                newPasswordError.textContent = "Those passwords didn't match. Try again";
+                confirmPasswordElem.classList.add('input-field-error');
+                confirmPasswordElem.value = '';
+                newPasswordError.classList.remove('ui-hide');
+                isValid = false;
+            }
+        }
+        return isValid;
     };
+
+    var save = function () {
+        if (validateSettings()) {
+            var userData = {};
+            userData.fname = fnameElem.value;
+            userData.lname = lnameElem.value;
+            if(changePassword) {
+                userData.password = newPasswordElem.value;
+            }
+            TDLData.updateUser(userData);
+            close();
+        }
+    };
+
+    var open = function () {
+        var currentUser = TDLData.getUser();
+
+        emailElem.textContent = currentUser.email;
+        fnameElem.value = currentUser.fname;
+        lnameElem.value = currentUser.lname;
+
+        settingsPopup.classList.remove('ui-hide');
+    };
+
+    var close = function () {
+        emailElem.value = '';
+        fnameElem.value = '';
+        lnameElem.value = '';
+        passwordElem.value = '';
+        newPasswordElem.value = '';
+        confirmPasswordElem.value = '';
+        changePassword = false;
+        changePasswordBtnCont.classList.remove('ui-hide');
+        changePasswordContainer.classList.add('ui-hide');
+        settingsPopup.classList.add('ui-hide');
+    };
+
+    changePasswordBtn.addEventListener('click', function () {
+        changePassword = true;
+        changePasswordBtnCont.classList.add('ui-hide');
+        changePasswordContainer.classList.remove('ui-hide');
+    });
+
+    settingsCancelBtn.addEventListener('click', close);
+    settingsSaveBtn.addEventListener('click', save);
 
     return {
         open: open

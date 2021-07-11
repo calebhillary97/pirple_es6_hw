@@ -249,13 +249,19 @@
         <div id="page-2-settings-popup" class="ui-hide popup-container">
             <div class="settings-popup">
                 <div class="settings-popup-title">User Settings</div>
+                <div>
+                    <div class="input-box" style="width: auto; margin-bottom: -4px">
+                        <label for="lname" class="form-label">Email: </label>
+                        <span id="user-email"></span>
+                    </div>
+                </div>
                 <div class="flex-container">
                     <div class="input-box">
                         <label for="fname" class="form-label">First name</label><br />
                         <input
                             class="input-field"
                             type="text"
-                            id="signup-fname"
+                            id="user-fname"
                             name="fname"
                             required
                         />
@@ -265,64 +271,70 @@
                         <input
                             class="input-field"
                             type="text"
-                            id="signup-lname"
+                            id="user-lname"
                             name="fname"
                             required
                         />
                     </div>
                 </div>
-                <div id="signup-name-error" class="error-info" style="display: none">
+                <div id="user-name-error" class="error-info ui-hide">
                     Enter first name and last name
                 </div>
+                <div id="password-btn-cont" style="margin-top: 10px;">
+                    <span class="change-password-btn">Change Password</span>
+                </div>
+                <div id="change-password-container" class="ui-hide">
+                    <div class="flex-container">
+                        <div class="input-box">
+                            <label for="fname" class="form-label">Current Password</label><br />
+                            <input
+                                class="input-field"
+                                type="password"
+                                id="user-currentpassword"
+                                name="fnpasswordame"
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div id="user-currentpassword-error" class="error-info ui-hide">
+                        Enter a password
+                    </div>
+                    <div class="flex-container">
+                        <div class="input-box">
+                            <label for="fname" class="form-label">New Password</label><br />
+                            <input
+                                class="input-field"
+                                type="password"
+                                id="user-newpassword"
+                                name="fnpasswordame"
+                                required
+                            />
+                        </div>
+                        <div class="input-box">
+                            <label for="fname" class="form-label">Confirm Password</label><br />
+                            <input
+                                class="input-field"
+                                type="password"
+                                id="user-confirmpassword"
+                                name="confirm"
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div id="user-newpassword-error" class="error-info ui-hide">
+                        Enter a password
+                    </div>
+                </div>
+
                 <div>
-                    <div class="input-box" style="width: auto">
-                        <label for="lname" class="form-label">Email</label><br />
-                        <input
-                            class="input-field"
-                            type="email"
-                            id="signup-email"
-                            name="email"
-                            required
-                        /><br />
-                    </div>
-                </div>
-                <div id="signup-email-error" class="error-info" style="display: none">
-                    Enter valid email
-                </div>
-                <div class="flex-container">
-                    <div class="input-box">
-                        <label for="fname" class="form-label">Password</label><br />
-                        <input
-                            class="input-field"
-                            type="password"
-                            id="signup-password"
-                            name="fnpasswordame"
-                            required
-                        />
-                    </div>
-                    <div class="input-box">
-                        <label for="fname" class="form-label">Confirm</label><br />
-                        <input
-                            class="input-field"
-                            type="password"
-                            id="signup-confirm"
-                            name="confirm"
-                            required
-                        />
-                    </div>
-                </div>
-                <div id="signup-password-error" class="error-info" style="display: none">
-                    Enter a password
-                </div>
-                <div style="position: absolute; bottom: 35px; width: 100%; right: 20px">
                     <span
-                        id="save-list-submit-btn"
+                        id="settings-save-btn"
                         style="margin-right: 30px; margin-left: 0px; float: right; width: 55px"
                         class="button"
                         >Save</span
                     >
                     <span
-                        id="save-list-cancel-btn"
+                        id="settings-cancel-btn"
                         style="margin-right: 30px; float: right; width: 55px"
                         class="button cancel-button"
                         >Cancel</span

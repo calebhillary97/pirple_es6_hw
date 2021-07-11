@@ -265,7 +265,6 @@ body {
 .settings-popup {
     position: absolute;
     width: 800px;
-    height: 456px;
     background-color: white;
     left: 50%;
     transform: translate(-50%, 0);
@@ -283,6 +282,19 @@ body {
     color: #7768ae;
     margin-bottom: 15px;
     font-weight: bold;
+}
+
+.change-password-btn {
+    color: #BE6E46;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px;
+    padding: 6px;
+}
+
+.change-password-btn:hover {
+    color: #834c30;
+    text-decoration: underline;
 }
 
 .view-list-name {
