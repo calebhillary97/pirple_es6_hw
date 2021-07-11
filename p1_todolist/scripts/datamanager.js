@@ -1,4 +1,8 @@
 var TDLData = (function () {
+
+    var custom = 'abcdefghijklmnopqrstuvwxyz1234567890';
+    var MD5 = new Hashes.MD5();
+
     var currentUser;
     // {
     //     fname: 'Caleb',
@@ -16,6 +20,9 @@ var TDLData = (function () {
     //         }
     //     ]
     // }
+    var getHash = function(password){
+        return MD5.any(password, custom);
+    };
 
     var isEmailAvailable = function (email) {
         if (localStorage.getItem(email) === null) {
@@ -24,8 +31,12 @@ var TDLData = (function () {
         return false;
     };
 
-    var signup = function (inputUser) {
-        currentUser = inputUser;
+    var signup = function (inputUserData) {
+        if(inputUserData.password) {
+            inputUserData.passwordHash = getHash(inputUserData.password);
+            delete inputUserData.password;
+        }
+        currentUser = inputUserData;
         if (!currentUser.lists) {
             currentUser.lists = [];
         }
@@ -57,7 +68,7 @@ var TDLData = (function () {
         if (userObj === null) {
             return false;
         }
-        if (password !== userObj.password) {
+        if (getHash(password) !== userObj.passwordHash) {
             return false;
         }
         return true;
@@ -104,7 +115,7 @@ var TDLData = (function () {
         currentUser.fname = userData.fname;
         currentUser.lname = userData.lname;
         if(userData.password){
-            currentUser.password = userData.password;
+            currentUser.passwordHash = getHash(userData.password);
         }
         localStorage.setItem(currentUser.email, JSON.stringify(currentUser));
         DashBoardView.open(currentUser);
