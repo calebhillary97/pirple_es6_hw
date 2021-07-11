@@ -1,5 +1,5 @@
 var TDLData = (function () {
-    var user;
+    var currentUser;
     // {
     //     fname: 'Caleb',
     //     lname: 'Hillary',
@@ -17,22 +17,51 @@ var TDLData = (function () {
     //     ]
     // }
 
-    var setUser = function (inputUser) {
-        user = inputUser;
-        if (!user.lists) {
-            user.lists = [];
+    var isEmailAvailable = function (email) {
+        if (localStorage.getItem(email) === null) {
+            return true;
         }
-        DashBoardView.open(user);
+        return false;
+    };
+
+    var signup = function (inputUser) {
+        currentUser = inputUser;
+        if (!currentUser.lists) {
+            currentUser.lists = [];
+        }
+        localStorage.setItem(currentUser.email, JSON.stringify(currentUser));
+        DashBoardView.open(currentUser);
+    };
+
+    var login = function (email, password) {
+        if (!checkPassword(email, password)) {
+            return false;
+        }
+        var userObj = JSON.parse(localStorage.getItem(email));
+        currentUser = userObj;
+        DashBoardView.open(currentUser);
+        return true;
+    };
+
+    var checkPassword = function (email, password) {
+        var userObj = JSON.parse(localStorage.getItem(email));
+        if (userObj === null) {
+            return false;
+        }
+        if (password !== userObj.password) {
+            return false;
+        }
+        return true;
     };
 
     var getUser = function () {
-        return user;
+        return currentUser;
     };
 
     var isListNameValid = function (name, currentIndex) {
-        var lists = user.lists;
+        var lists = currentUser.lists;
         for (var i = 0; i < lists.length; i++) {
-            if(i==currentIndex) {
+            if (i == currentIndex) {
                 continue;
             }
             if (name === lists[i].name) {
@@ -43,26 +72,30 @@ var TDLData = (function () {
     };
 
     var saveList = function (newList, index) {
-        var lists = user.lists;
+        var lists = currentUser.lists;
         if (!isListNameValid(newList.name, index)) {
             return false;
         }
-        if(index!=-1) {
+        if (index != -1) {
             lists[index] = newList;
             DashBoardView.updateList(newList, index);
         } else {
             lists.push(newList);
             DashBoardView.updateList(newList);
         }
+        localStorage.setItem(currentUser.email, JSON.stringify(currentUser));
         return true;
     };
 
-    var getListAtIndex = function(index){
-        return user.lists[index];
+    var getListAtIndex = function (index) {
+        return currentUser.lists[index];
     };
 
     return {
-        setUser: setUser,
+        isEmailAvailable: isEmailAvailable,
+        signup: signup,
+        login: login,
+        checkPassword: checkPassword,
         getUser: getUser,
         isListNameValid: isListNameValid,
         saveList: saveList,

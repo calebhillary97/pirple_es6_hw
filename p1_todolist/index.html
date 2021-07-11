@@ -19,7 +19,40 @@
                     <div id="btn-signup" class="button" style="margin-top: 10px">Sign Up</div>
                 </div>
                 <div id="login-form" style="display: none">
-                    <div id="btn-login" class="button" style="margin-top: 192px">Log In</div>
+                    <div>
+                        <div class="input-box" style="width: auto">
+                            <label for="login-email" class="form-label">Email</label><br />
+                            <input
+                                class="input-field"
+                                type="text"
+                                id="login-email"
+                                name="login-email"
+                                required
+                            /><br />
+                        </div>
+                    </div>
+                    <div id="login-email-error" class="error-info ui-hide">Please enter email</div>
+                    <div>
+                        <div class="input-box" style="width: auto">
+                            <label for="login-password" class="form-label">Password</label><br />
+                            <input
+                                class="input-field"
+                                type="password"
+                                id="login-password"
+                                name="login-password"
+                                required
+                            /><br />
+                        </div>
+                    </div>
+                    <div id="login-error" class="error-info ui-hide">Please enter password</div>
+                    <div
+                        type="submit"
+                        id="btn-login-submit"
+                        class="button"
+                        style="margin-top: 30px; margin-bottom: 15px"
+                    >
+                        Login
+                    </div>
                 </div>
                 <div id="signup-form" style="display: none">
                     <div class="flex-container">
@@ -108,7 +141,7 @@
                 There are no lists currently available to display. Please use above button to add
                 list.
             </div>
-            <ul style="list-style-type: none; margin-top: 30px;">
+            <ul style="list-style-type: none; margin-top: 30px">
                 <template>
                     <li class="dashboard-list-item">
                         <span class="dashboard-list-text">List one</span

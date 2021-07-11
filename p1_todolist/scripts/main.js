@@ -32,6 +32,9 @@ var Pages = {
     var loginForm = document.getElementById('login-form');
     var signupForm = document.getElementById('signup-form');
 
+    var loginEmail = document.getElementById('login-email');
+    var loginPassword = document.getElementById('login-password');
+
     var signupFName = document.getElementById('signup-fname');
     var signupLName = document.getElementById('signup-lname');
     var signupEmail = document.getElementById('signup-email');
@@ -73,6 +76,12 @@ var Pages = {
 
         if (!signupEmail.checkValidity()) {
             signupEmail.classList.add('input-field-error');
+            emailError.textContent = 'Enter valid email';
+            Utils.show(emailError);
+            isValid = false;
+        } else if (!TDLData.isEmailAvailable(signupEmail.value)) {
+            signupEmail.classList.add('input-field-error');
+            emailError.textContent = 'Email already exists. Use login';
             Utils.show(emailError);
             isValid = false;
         }
@@ -102,12 +111,44 @@ var Pages = {
         return isValid;
     };
 
+    var validateLogin = function () {
+        var loginEmailError = document.getElementById('login-email-error');
+        var loginError = document.getElementById('login-error');
+        var isValid = true;
+        //reset
+        loginError.classList.add('ui-hide');
+        loginEmailError.classList.add('ui-hide');
+        loginEmail.classList.remove('input-field-error');
+        loginPassword.classList.remove('input-field-error');
+
+        if (!loginEmail.checkValidity()) {
+            loginEmailError.textContent = 'Please enter email';
+            loginEmailError.classList.remove('ui-hide');
+            loginEmail.classList.add('input-field-error');
+            isValid = false;
+        } else if (!loginPassword.checkValidity()) {
+            loginError.textContent = 'Please enter password';
+            loginError.classList.remove('ui-hide');
+            loginPassword.classList.add('input-field-error');
+            isValid = false;
+        } else if (!TDLData.checkPassword(loginEmail.value, loginPassword.value)) {
+            loginError.textContent = 'Email and Password dont match. Please try again';
+            loginError.classList.remove('ui-hide');
+            loginEmail.classList.add('input-field-error');
+            loginPassword.classList.add('input-field-error');
+            loginPassword.value = '';
+            isValid = false;
+        }
+        return isValid;
+    };
+
     defaultBox.addEventListener('click', function (event) {
         switch (event.target.id) {
             case 'btn-login':
                 console.log('Login');
                 Utils.hide(defaultForm);
                 Utils.show(loginForm);
+                defaultBox.classList.add('login-box');
                 break;
             case 'btn-signup':
                 console.log('Signup');
@@ -118,13 +159,20 @@ var Pages = {
             case 'btn-signup-submit':
                 console.log('Signup-Submit');
                 if (validateSignup()) {
-                    TDLData.setUser({
+                    TDLData.signup({
                         fname: signupFName.value,
                         lname: signupLName.value,
                         email: signupEmail.value,
                         password: signupPassword.value
                     });
                 }
+                break;
+            case 'btn-login-submit':
+                console.log('Login-Submit');
+                if (validateLogin()) {
+                    TDLData.login(loginEmail.value, loginPassword.value);
+                }
+                break;
         }
     });
 })();
@@ -159,8 +207,8 @@ var ListPopupView = (function () {
         };
 
         var hide = function (clear) {
-            if(clear) {
-                addTaskTextArea.value="";
+            if (clear) {
+                addTaskTextArea.value = '';
                 canSubmitForm = false;
                 addTaskFormSubmit.classList.add('disabled-button');
             }
@@ -316,8 +364,13 @@ var DashBoardView = (function () {
                 'Created at ' + new Date(list.time).toLocaleString();
             listsUL.appendChild(newListElem);
         } else {
-            var listElement = listsUL.querySelectorAll('li')[index];
-            listElement.querySelector('.dashboard-list-text').textContent = list.name;
+            var listElements = listsUL.querySelectorAll('li');
+            if(index<listElements.length) {
+                var listElement = listElements[index];
+                listElement.querySelector('.dashboard-list-text').textContent = list.name;
+            } else {
+                updateList(list);
+            }
         }
     };
 
@@ -332,6 +385,7 @@ var DashBoardView = (function () {
         } else {
             noListsInfo.classList.add('ui-hide');
             isNoListInfoShown = false;
+            user.lists.forEach(updateList);
         }
     };
 
