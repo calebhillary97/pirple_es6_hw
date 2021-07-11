@@ -43,6 +43,10 @@ var TDLData = (function () {
         return true;
     };
 
+    var logout = function(){
+        currentUser=undefined;
+    };
+
     var checkPassword = function (email, password) {
         var userObj = JSON.parse(localStorage.getItem(email));
         if (userObj === null) {
@@ -95,6 +99,7 @@ var TDLData = (function () {
         isEmailAvailable: isEmailAvailable,
         signup: signup,
         login: login,
+        logout: logout,
         checkPassword: checkPassword,
         getUser: getUser,
         isListNameValid: isListNameValid,

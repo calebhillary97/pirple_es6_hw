@@ -3,6 +3,21 @@ body {
     background-color: #e7f3d8;
 }
 
+.tdl-title {
+    text-align: center;
+    font-size: 45px;
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
+    margin: 10px;
+    color: #632000;
+}
+
+.tdl-description {
+    width: 560px;
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
+    margin: 10px auto;
+    font-size: 14px;
+}
+
 .top-band {
     height: 0px;
     padding: 0px;

@@ -13,12 +13,19 @@
         </div>
 
         <div id="page-1-index">
-            <div id="default-box" class="default-box" style="display: block">
+            <div class="tdl-title">To Do List</div>
+            <div class="tdl-description">
+                To Do List is an app created by Caleb. This allows you to maintain a personal
+                to-do-list to which you can add lists of items. You can mark each item as
+                completed, and track them. The data will be stored in local storage so will be
+                available whenever you need it.
+            </div>
+            <div id="default-box" class="default-box">
                 <div id="default-form">
                     <div id="btn-login" class="button" style="margin-top: 192px">Log In</div>
                     <div id="btn-signup" class="button" style="margin-top: 10px">Sign Up</div>
                 </div>
-                <div id="login-form" style="display: none">
+                <div id="login-form" class="ui-hide">
                     <div>
                         <div class="input-box" style="width: auto">
                             <label for="login-email" class="form-label">Email</label><br />
@@ -31,7 +38,9 @@
                             /><br />
                         </div>
                     </div>
-                    <div id="login-email-error" class="error-info ui-hide">Please enter email</div>
+                    <div id="login-email-error" class="error-info ui-hide">
+                        Please enter email
+                    </div>
                     <div>
                         <div class="input-box" style="width: auto">
                             <label for="login-password" class="form-label">Password</label><br />
@@ -54,7 +63,7 @@
                         Login
                     </div>
                 </div>
-                <div id="signup-form" style="display: none">
+                <div id="signup-form" class="ui-hide">
                     <div class="flex-container">
                         <div class="input-box">
                             <label for="fname" class="form-label">First name</label><br />

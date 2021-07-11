@@ -146,14 +146,14 @@ var Pages = {
         switch (event.target.id) {
             case 'btn-login':
                 console.log('Login');
-                Utils.hide(defaultForm);
-                Utils.show(loginForm);
+                defaultForm.classList.add('ui-hide');
+                loginForm.classList.remove('ui-hide');
                 defaultBox.classList.add('login-box');
                 break;
             case 'btn-signup':
                 console.log('Signup');
-                Utils.show(signupForm);
-                Utils.hide(defaultForm);
+                defaultForm.classList.add('ui-hide');
+                signupForm.classList.remove('ui-hide');
                 defaultBox.classList.add('signup-box');
                 break;
             case 'btn-signup-submit':
@@ -165,16 +165,31 @@ var Pages = {
                         email: signupEmail.value,
                         password: signupPassword.value
                     });
+                    signupFName.value = '';
+                    signupLName.value = '';
+                    signupEmail.value = '';
+                    signupPassword.value = '';
+                    signupConfirm.value = '';
+                    defaultBox.classList.remove('signup-box');
                 }
                 break;
             case 'btn-login-submit':
                 console.log('Login-Submit');
                 if (validateLogin()) {
                     TDLData.login(loginEmail.value, loginPassword.value);
+                    loginEmail.value = '';
+                    loginPassword.value = '';
+                    defaultBox.classList.remove('login-box');
                 }
                 break;
         }
     });
+
+    window.resetIndexView = function () {
+        defaultForm.classList.remove('ui-hide');
+        loginForm.classList.add('ui-hide');
+        signupForm.classList.add('ui-hide');
+    };
 })();
 
 var ListPopupView = (function () {
@@ -207,7 +222,7 @@ var ListPopupView = (function () {
         };
 
         var hide = function (clear) {
-            if (clear) {
+            if (clear === true ) {
                 addTaskTextArea.value = '';
                 canSubmitForm = false;
                 addTaskFormSubmit.classList.add('disabled-button');
@@ -301,7 +316,7 @@ var ListPopupView = (function () {
         });
 
         //close
-        AddTaskForm.hide();
+        AddTaskForm.hide(true);
         popupElement.classList.add('ui-hide');
     };
 
@@ -343,6 +358,8 @@ var DashBoardView = (function () {
     var topBand = document.getElementById('top-band');
     var topBandName = topBand.querySelector('.top-band-name');
 
+    var logoutBtn = topBand.querySelector('.logout-btn');
+
     var dashBoard = document.getElementById('page-2-dashboard');
     var addListBtn = document.getElementById('add-list-btn');
 
@@ -365,7 +382,7 @@ var DashBoardView = (function () {
             listsUL.appendChild(newListElem);
         } else {
             var listElements = listsUL.querySelectorAll('li');
-            if(index<listElements.length) {
+            if (index < listElements.length) {
                 var listElement = listElements[index];
                 listElement.querySelector('.dashboard-list-text').textContent = list.name;
             } else {
@@ -376,17 +393,30 @@ var DashBoardView = (function () {
 
     var open = function (user) {
         topBandName.textContent = user.fname + ' ' + user.lname;
-        document.getElementById('top-band').classList.add('top-band-active');
+        topBand.classList.add('top-band-active');
         Pages.index.classList.add('ui-hide');
         Pages.dashboard.classList.remove('ui-hide');
-        if (user.lists.length == 0) {
-            noListsInfo.classList.remove('ui-hide');
-            isNoListInfoShown = true;
-        } else {
+        if (user.lists.length > 0) {
             noListsInfo.classList.add('ui-hide');
             isNoListInfoShown = false;
             user.lists.forEach(updateList);
         }
+    };
+
+    var close = function () {
+        //reset UI
+        listsUL.querySelectorAll('li').forEach(function (listElement) {
+            listElement.remove();
+        });
+        noListsInfo.classList.remove('ui-hide');
+        isNoListInfoShown = true;
+        topBand.classList.remove('top-band-active');
+
+        TDLData.logout();
+        resetIndexView();
+
+        Pages.index.classList.remove('ui-hide');
+        Pages.dashboard.classList.add('ui-hide');
     };
 
     var onListClick = function (event) {
@@ -403,6 +433,8 @@ var DashBoardView = (function () {
     });
 
     listsUL.addEventListener('click', onListClick);
+
+    logoutBtn.addEventListener('click', close);
 
     return {
         open: open,
