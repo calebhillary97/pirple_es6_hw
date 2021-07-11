@@ -87,13 +87,30 @@ body {
     background-color: #59594a;
 }
 
-.logout-btn {
+.topband-btn {
     float: right;
     padding: 7px;
     margin-right: 0px;
     height: auto;
     width: 80px;
     border-radius: 20px;
+    margin-left: 20px;
+}
+
+.logout-btn {
+    background-color: #BE6E46;
+}
+
+.logout-btn:hover {
+    background-color: #834c30;
+}
+
+.settings-btn {
+    background-color: #7768AE;
+}
+
+.settings-btn:hover {
+    background-color: #493f6b;
 }
 
 .signup-box {
@@ -123,6 +140,15 @@ body {
 .form-label {
     font-weight: 700;
     font-size: 13px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+        sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    margin-left: 5px;
+    color: #222e24;
+}
+
+.form-text {
+    font-size: 14px;
+    font-style: italic;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
         sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     margin-left: 5px;
@@ -234,6 +260,29 @@ body {
     transform: translate(-50%, 0);
     top: 12%;
     border-radius: 20px;
+}
+
+.settings-popup {
+    position: absolute;
+    width: 800px;
+    height: 456px;
+    background-color: white;
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: 12%;
+    border-radius: 20px;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.settings-popup-title {
+    text-align: center;
+    font-size: 28px;
+    margin-top: -8px;
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
+    color: #7768ae;
+    margin-bottom: 15px;
+    font-weight: bold;
 }
 
 .view-list-name {

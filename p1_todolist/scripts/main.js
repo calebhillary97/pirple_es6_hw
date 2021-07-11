@@ -40,11 +40,13 @@ var Pages = {
     var signupEmail = document.getElementById('signup-email');
     var signupPassword = document.getElementById('signup-password');
     var signupConfirm = document.getElementById('signup-confirm');
+    var signupTermsagree = document.getElementById('signup-termsagree');
 
     var validateSignup = function () {
         var nameError = document.getElementById('signup-name-error');
         var emailError = document.getElementById('signup-email-error');
         var passwordError = document.getElementById('signup-password-error');
+        var termsagreeError = document.getElementById('signup-termsagree-error');
         var isValid = true;
         //reset
         Utils.hide(nameError);
@@ -55,6 +57,7 @@ var Pages = {
         Utils.hide(passwordError);
         signupPassword.classList.remove('input-field-error');
         signupConfirm.classList.remove('input-field-error');
+        Utils.hide(termsagreeError);
 
         if (!signupFName.checkValidity() && !signupLName.checkValidity()) {
             nameError.textContent = 'Enter first name and last name';
@@ -106,6 +109,11 @@ var Pages = {
             signupConfirm.classList.add('input-field-error');
             signupConfirm.value = '';
             Utils.show(passwordError);
+            isValid = false;
+        }
+
+        if(!signupTermsagree.checked) {
+            Utils.show(termsagreeError);
             isValid = false;
         }
         return isValid;
@@ -170,6 +178,7 @@ var Pages = {
                     signupEmail.value = '';
                     signupPassword.value = '';
                     signupConfirm.value = '';
+                    signupTermsagree.checked = false;
                     defaultBox.classList.remove('signup-box');
                 }
                 break;
@@ -354,11 +363,25 @@ var ListPopupView = (function () {
     };
 })();
 
+var SettingsPopupView = (function(){
+
+    var settingsPopup = document.getElementById("page-2-settings-popup");
+    
+    var open = function(){
+        settingsPopup.classList.remove("ui-hide");
+    };
+
+    return {
+        open: open
+    };
+})();
+
 var DashBoardView = (function () {
     var topBand = document.getElementById('top-band');
     var topBandName = topBand.querySelector('.top-band-name');
 
     var logoutBtn = topBand.querySelector('.logout-btn');
+    var settingsBtn = topBand.querySelector('.settings-btn');
 
     var dashBoard = document.getElementById('page-2-dashboard');
     var addListBtn = document.getElementById('add-list-btn');
@@ -435,6 +458,7 @@ var DashBoardView = (function () {
     listsUL.addEventListener('click', onListClick);
 
     logoutBtn.addEventListener('click', close);
+    settingsBtn.addEventListener('click', SettingsPopupView.open);
 
     return {
         open: open,
